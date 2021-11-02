@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useMakeList from "../hooks/useMakeList";
 import Row from "./Row";
 import Make from "./Make";
-import "../style.css";
+import {Spinner} from 'react-bootstrap';
 
 function Mainscreen() {
 
@@ -11,8 +11,9 @@ function Mainscreen() {
   const [modelData, setModalData] = useState([]);
 
   // custom hooks for useEffect 
-  const { data } = useMakeList();
+  const { data, loading } = useMakeList();
   console.log(data);
+  console.log("Main Component",loading);
   // Function to get all data
   const getAllData = async () => {
     const url = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${optionValue}?format=json`;
@@ -30,10 +31,13 @@ function Mainscreen() {
 
 
   return (
+    
     <div>
       <div>
-        <div className="form_layout">
-            <Make handleChange={handleChange} searchName={data.Make_Name} value={data.Make_Name} data={data}/>
+        <div className="form_layout"> 
+        {loading ? <Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner> 
+          : <Make handleChange={handleChange} searchName={data.Make_Name} value={data.Make_Name} data={data}/> }   
+              {/* <Make handleChange={handleChange} searchName={data.Make_Name} value={data.Make_Name} data={data}/> */}
           <button className="dataButton" onClick={getAllData}>Get Model</button>
 
         </div>

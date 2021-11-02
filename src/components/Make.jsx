@@ -1,7 +1,9 @@
 import React from 'react';
 import '../style.css';
 
+
 function Make({handleChange, data}) {
+
     return (
         <div>
             <form>
@@ -12,6 +14,7 @@ function Make({handleChange, data}) {
                 ))}
               </select>
             </form>
+            
         </div>
     )
 }
